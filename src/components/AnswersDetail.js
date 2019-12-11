@@ -24,8 +24,6 @@ function Component ({ userID, questionID, answerID, user, question, answer, isMi
     alert('コピーしました')
   }, [inputRef])
 
-  console.log({ answer })
-
   return (
     <div className="bg-green-600 text-white">
       <div className="max-w-lg min-h-screen flex flex-col mx-auto">
