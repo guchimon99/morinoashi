@@ -1,7 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { ArrowLeft } from 'react-feather'
 
 import questionDrawer from '../drawers/question'
 
