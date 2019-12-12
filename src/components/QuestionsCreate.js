@@ -9,6 +9,7 @@ import actionCreator from '../actions'
 
 import CardButton from './CardButton'
 import Form, { Field, Label, TextArea, ErrorAlert } from './Form'
+import Header, { Back, Title } from './Header'
 
 function Component ({ submit, user, currentUser, isProcessing, error }) {
   const canvasRef = React.createRef(null)
@@ -40,43 +41,45 @@ function Component ({ submit, user, currentUser, isProcessing, error }) {
   }, [user, body, canvasRef, updateCanvasHandler, renderedBody])
 
   return (
-    <div className="bg-green-600 text-white">
-      <Form onSubmit={submitHandler} className="max-w-lg min-h-screen mx-auto flex flex-col pt-12">
-        <div className="flex pt-4 px-2 items-center">
-          <Link to="/i" className="w-12 h-12 flex items-center justify-center mr-4">
-            <ArrowLeft color="white" />
-          </Link>
-          <div className="font-bold text-lg">質問の作成</div>
-        </div>
-        <div className="flex-grow flex flex-col px-2 justify-center">
-          <div className="bg-white text-black rounded-lg shadow">
-            <div className="flex items-center p-4">
-              <div className="w-10 h-10 bg-gray-300 rounded-full mr-2"></div>
-              <div className="text-sm">{user ? user.displayName : ''}</div>
+    <>
+      <div className="bg-green-600 text-white">
+        <Form onSubmit={submitHandler} className="max-w-lg min-h-screen mx-auto flex flex-col py-16">
+          <div className="flex-grow flex flex-col px-2 justify-center">
+            <div className="bg-white text-black rounded-lg shadow">
+              <div className="flex items-center p-4">
+                <div className="text-sm">{user ? user.displayName : ''}</div>
+              </div>
+              <Field className="flex-grow flex flex-col px-4">
+                <Label htmlFor="bodyInput" className="hidden">質問の内容</Label>
+                <TextArea
+                  id="bodyInput" className="flex-grow font-bold" placeholder="みんなに聞いてみたいことを書こう"
+                  requreid="required" rows={10}
+                  value={body} onChange={updateBodyHandler} />
+              </Field>
+              <div className="px-4">
+                <ErrorAlert error={error} />
+              </div>
             </div>
-            <Field className="flex-grow flex flex-col px-4">
-              <Label htmlFor="bodyInput" className="hidden">質問の内容</Label>
-              <TextArea
-                id="bodyInput" className="flex-grow font-bold" placeholder="みんなに聞いてみたいことを書こう"
-                requreid="required" rows={10}
-                value={body} onChange={updateBodyHandler} />
-            </Field>
-            <div className="px-4">
-              <ErrorAlert error={error} />
+            <canvas ref={canvasRef} className="w-full h-auto hidden" />
+          </div>
+          <div className="fixed left-0 bottom-0 right-0">
+            <div className="absolute bottom-0 mx-auto mb-4 w-40 left-0 right-0">
+              <CardButton className="text-sm" disabled={!isSubmittable} type="submit" style={{ transition: 'all .5s ease 0s', minWidth: '10rem' }}>
+                {isProcessing ? '作成中'
+                  : isSubmittable ? '作成する'
+                    : '入力してください'
+                }
+              </CardButton>
             </div>
           </div>
-          <canvas ref={canvasRef} className="w-full h-auto hidden" />
-        </div>
-        <div className="flex justify-center pb-4">
-          <CardButton className="text-sm" disabled={!isSubmittable} type="submit" style={{ transition: 'all .5s ease 0s', minWidth: '10rem' }}>
-            {isProcessing ? '作成中'
-              : isSubmittable ? '作成する'
-                : '入力してください'
-            }
-          </CardButton>
-        </div>
-      </Form>
-    </div>
+        </Form>
+      </div>
+      <Header>
+        <Back to="/i" />
+        <Title>質問の作成</Title>
+      </Header>
+    </>
+
   )
 }
 
