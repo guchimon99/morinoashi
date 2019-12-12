@@ -18,7 +18,7 @@ function Component ({ userID, user, questions, get, currentUser }) {
 
   return (
     <div className="bg-green-600 text-white">
-      <div className="max-w-lg mx-auto min-h-screen flex flex-col">
+      <div className="max-w-lg mx-auto min-h-screen flex flex-col pt-12">
         {currentUser ? (
           <div className="flex py-4 px-2 items-center">
             <Link to="/i" className="w-12 h-12 flex items-center justify-center mr-4">

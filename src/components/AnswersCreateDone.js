@@ -8,7 +8,7 @@ import { LinkButton } from './Button'
 function Component ({ userID, questionID, isMine }) {
   return (
     <div className="max-w-lg min-h-screen flex flex-col mx-auto py-4">
-      <div className="flex-grow flex flex-col items-center justify-center p-4">
+      <div className="flex-grow flex flex-col items-center justify-center p-4 pt-12">
         <Smile width={48} height={48} />
         <div className="w-full text-center px-4 text-lg text-gray-800 mt-6">ありがとう</div>
       </div>

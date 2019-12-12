@@ -26,7 +26,7 @@ function Component ({ isProcessing, error, currentUser, submit }) {
   }
 
   return (
-    <div className="max-w-lg min-h-screen mx-auto flex flex-col">
+    <div className="max-w-lg min-h-screen mx-auto flex flex-col pt-12">
       <div className="mb-8 py-8 px-4">
         <div className="text-gray-900 text-2xl font-bold mb-3">
           おかえりなさい！

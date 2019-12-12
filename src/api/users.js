@@ -23,6 +23,9 @@ export const create = async ({ id, ...data }) => {
   })
 }
 
-export const update = async ({ id, ...data }) => {
-  await firestore.doc(`users/${id}`).update(data)
+export const update = async (id, data) => {
+  const ref = firestore.doc(`users/${id}`)
+  await ref.update(data)
+  const doc = await ref.get()
+  return parseDoc(doc)
 }

@@ -12,9 +12,23 @@ const get = store => next => async action => {
   }
 }
 
+const profileUpdate = store => next => async action => {
+  next(actionCreator.settings.profileUpdateStart())
+  try {
+    const { userID, data } = action.payload
+    const user = await usersAPI.update(userID, data)
+    next(actionCreator.settings.profileUpdateSucceed(user))
+  } catch (error) {
+    next(actionCreator.settings.profileUpdateFailed(error))
+    throw error
+  }
+}
+
 const users = store => next => action => {
   if (action.type === 'USERS/GET') {
     return get(store)(next)(action)
+  } else if (action.type === 'SETTINGS/PROFILE_UPDATE') {
+    return profileUpdate(store)(next)(action)
   }
 
   return next(action)

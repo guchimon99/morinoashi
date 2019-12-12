@@ -1,32 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { ArrowLeft } from 'react-feather'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 import actionCreator from '../actions'
 
+import Header, { Title, Back } from './Header'
 import Form, { Field, Label, Input, ErrorAlert } from './Form'
 import Button from './Button'
 
 function Component ({ isReady, currentUser, submit, init, error, isProcessing, user }) {
   const [isMounted, setIsMounted] = React.useState(false)
   const [displayName, setDisplayName] = React.useState(user.displayName)
-  const [photoURL, setPhotoURL] = React.useState(user.photoURL)
 
   const updateDisplayNameHandler = React.useCallback((event) => setDisplayName(event.target.value), [setDisplayName])
-  const updatePhotoHandler = React.useCallback((event) => {
-    setPhotoURL()
-  }, [setPhotoURL])
+  const isSubmittable = React.useMemo(() => !!(!isProcessing && displayName), [isProcessing, displayName])
 
   const submitHandler = React.useCallback(event => {
     event.preventDefault()
-    if (isProcessing) return
-    submit({
-      ...user,
-      displayName,
-      photoURL
-    })
-  }, [displayName, photoURL, user, isProcessing, submit])
+    if (!isSubmittable) return
+    submit(user.id, { displayName })
+  }, [displayName, user, isSubmittable, submit])
 
   React.useEffect(() => {
     if (isMounted) return
@@ -39,34 +32,29 @@ function Component ({ isReady, currentUser, submit, init, error, isProcessing, u
   }
 
   return (
-    <div className="bg-green-600 min-h-screen flex flex-col">
-      <div className="bg-green-600 text-white">
-        <div className="max-w-lg mx-auto">
-          <div className="flex py-4 px-2 items-center">
-            <Link to="/i/settings" className="w-12 h-12 flex items-center justify-center mr-4">
-              <ArrowLeft color="white" />
-            </Link>
-            <div className="font-bold text-lg">プロフィールの変更</div>
-          </div>
-        </div>
-      </div>
-      <div className="bg-white flex-grow flex flex-col">
+    <>
+      <div className="max-w-lg mx-auto pt-16 min-h-screen flex flex-col">
         <Form onSubmit={submitHandler} className="w-full max-w-lg mx-auto flex-grow flex flex-col py-4 px-4">
           <div className="flex-grow mb-4">
             <Field>
               <Label htmlFor="displayNameInput">名前</Label>
               <Input id="displayNameInput" type="text" required value={displayName} onChange={updateDisplayNameHandler} />
             </Field>
-            <Field>
-              <Label htmlFor="photoURLInput">アイコン</Label>
-              <Input id="photoURLInput" type="file" onChange={updatePhotoHandler} />
-            </Field>
           </div>
           <ErrorAlert error={error} />
-          <Button type="submit">保存する</Button>
+          <Button type="submit" disabled={!isSubmittable}>
+            {isProcessing ? '処理中'
+              : isSubmittable ? '保存する'
+                : '入力してください'
+            }
+          </Button>
         </Form>
       </div>
-    </div>
+      <Header>
+        <Back to="/i/settings" />
+        <Title>プロフィール変更</Title>
+      </Header>
+    </>
   )
 }
 
@@ -80,7 +68,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   init: () => dispatch(actionCreator.settings.profileUpdateInit()),
-  submit: (user) => dispatch(actionCreator.settings.profileUpdate(user))
+  submit: (userID, data) => dispatch(actionCreator.settings.profileUpdate(userID, data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Component)

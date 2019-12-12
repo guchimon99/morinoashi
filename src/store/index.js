@@ -6,7 +6,6 @@ import storage from 'redux-persist/lib/storage'
 
 import createRootReducer from '../reducers'
 
-import me from '../middleware/me'
 import app from '../middleware/app'
 import users from '../middleware/users'
 import answers from '../middleware/answers'
@@ -30,7 +29,6 @@ export default function configureStore (preloadedState = {}) {
     composeEnhancers(
       applyMiddleware(
         app,
-        me,
         users,
         questions,
         answers,

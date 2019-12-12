@@ -5,8 +5,8 @@ import { LinkButton } from './Button'
 
 function Component () {
   return (
-    <div className="max-w-lg min-h-screen mx-auto p-4 flex flex-col">
-      <div className="flex-grow flex flex-col justify-center mb-4">
+    <div className="max-w-lg min-h-screen mx-auto pt-12 pb-4 flex flex-col">
+      <div className="flex-grow flex flex-col justify-center px-4 mb-4">
         <div className="text-3xl font-bold text-black mb-4">
         「王様の耳はロバの耳」
         </div>
@@ -15,9 +15,13 @@ function Component () {
           <p className="mb-4">森の葦はみんなが実名では答えづらいことを質問するための道具です。</p>
         </div>
       </div>
-      <div>
-        <LinkButton to={'/signup'} className="mb-4">使ってみる</LinkButton>
-        <LinkButton to={'/signin'} color="secondary">ログインする</LinkButton>
+      <div className="px-2 flex">
+        <div className="px-2 w-1/2">
+          <LinkButton to={'/signup'} className="text-sm">アカウント作成</LinkButton>
+        </div>
+        <div className="px-2 w-1/2">
+          <LinkButton to={'/signin'} color="secondary" className="text-sm">ログイン</LinkButton>
+        </div>
       </div>
     </div>
   )

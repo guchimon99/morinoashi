@@ -41,7 +41,7 @@ function Component ({ submit, user, currentUser, isProcessing, error }) {
 
   return (
     <div className="bg-green-600 text-white">
-      <Form onSubmit={submitHandler} className="max-w-lg min-h-screen mx-auto flex flex-col">
+      <Form onSubmit={submitHandler} className="max-w-lg min-h-screen mx-auto flex flex-col pt-12">
         <div className="flex pt-4 px-2 items-center">
           <Link to="/i" className="w-12 h-12 flex items-center justify-center mr-4">
             <ArrowLeft color="white" />

@@ -10,7 +10,7 @@ import AnswersDetail from './AnswersDetail'
 
 function Component ({ userID, questionID, answerID, user, question, get }) {
   const [isGot, setIsGot] = React.useState(false)
-  const isShouldGet = React.useMemo(() => !isGot && user && question && answerID, [isGot, user, question, answerID])
+  const isShouldGet = React.useMemo(() => !isGot && user && question && answerID && answerID !== 'new', [isGot, user, question, answerID])
 
   React.useEffect(() => {
     if (!isShouldGet) return

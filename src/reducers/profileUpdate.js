@@ -3,7 +3,7 @@ const initialState = {
   error: null
 }
 
-const questionsCreate = (state = initialState, action) => {
+const profileUpdate = (state = initialState, action) => {
   switch (action.type) {
     case 'SETTINGS/PROFILE_UPDATE_INIT': {
       return initialState
@@ -32,4 +32,4 @@ const questionsCreate = (state = initialState, action) => {
   }
 }
 
-export default questionsCreate
+export default profileUpdate

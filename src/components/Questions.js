@@ -10,11 +10,13 @@ import actionCreator from '../actions'
 function Component ({ user, get, userID, questionID }) {
   const [isGot, setIsGot] = React.useState(false)
 
+  const isShouldGet = React.useMemo(() => !!(!isGot && user && questionID && questionID !== 'new'), [isGot, user, questionID])
+
   React.useEffect(() => {
-    if (isGot || !user || !questionID) return
+    if (!isShouldGet) return
     get(userID, questionID)
     setIsGot(true)
-  }, [get, isGot, user, questionID, userID])
+  }, [get, isGot, questionID, userID, isShouldGet])
 
   return (
     <Switch>

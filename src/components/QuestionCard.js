@@ -7,31 +7,41 @@ const Placeholder = ({ message }) => (
   </div>
 )
 
+const Container = ({ children }) => (
+  <div className="flex-grow px-2 pb-16 flex flex-col pt-4">
+    {children}
+  </div>
+)
+
 export function QuestionCardList ({ creator, questions }) {
+  if (!questions) {
+    return (
+      <Container>
+        <QuestionCard isPlaceholder={true} />
+        <QuestionCard isPlaceholder={true} />
+        <QuestionCard isPlaceholder={true} />
+        <QuestionCard isPlaceholder={true} />
+        <QuestionCard isPlaceholder={true} />
+        <QuestionCard isPlaceholder={true} />
+        <QuestionCard isPlaceholder={true} />
+      </Container>
+    )
+  } else if (questions.length < 1) {
+    return (
+      <Container>
+        <Placeholder message={'質問がありません'} />
+      </Container>
+    )
+  }
+
   return (
-    <div className="flex-grow px-2 pb-16 flex flex-col">
-      {!questions ? (
-        <>
-          <QuestionCard isPlaceholder={true} />
-          <QuestionCard isPlaceholder={true} />
-          <QuestionCard isPlaceholder={true} />
-          <QuestionCard isPlaceholder={true} />
-          <QuestionCard isPlaceholder={true} />
-          <QuestionCard isPlaceholder={true} />
-          <QuestionCard isPlaceholder={true} />
-        </>
-      ) : (
-        questions.length < 1 ? (
-          <Placeholder message={'質問がありません'} />
-        ) : (
-          questions.map(question =>
-            <div key={question.id} className="mb-4">
-              <QuestionCard creator={creator} question={question} />
-            </div>
-          )
-        )
+    <Container>
+      {questions.map(question =>
+        <div key={question.id} className="mb-4">
+          <QuestionCard creator={creator} question={question} />
+        </div>
       )}
-    </div>
+    </Container>
   )
 }
 

@@ -10,14 +10,14 @@ const buildClassName = (color = COLOR_PRIMARY, className = '', disabled = false)
   if (color === COLOR_PRIMARY) {
     options = `${options} bg-white bg-green-500 text-white`
   } else if (color === COLOR_SECONDARY) {
-    options = `${options} bg-white text-green-700`
+    options = `${options} bg-white text-green-700 border border-green-600`
   }
 
   if (disabled) {
     options = `${options} opacity-50`
   }
 
-  return `block w-full text-center p-2 rounded ${options}`
+  return `block w-full text-center p-2 py-3 rounded rounded-full ${options}`
 }
 
 const Button = ({ color, className, disabled, children, ...props }) => (

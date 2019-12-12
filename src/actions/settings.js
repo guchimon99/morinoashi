@@ -11,9 +11,9 @@ export const profileUpdateStart = () => ({
   type: 'SETTINGS/PROFILE_UPDATE_START'
 })
 
-export const profileUpdateSucceed = (userID, data) => ({
+export const profileUpdateSucceed = (user) => ({
   type: 'SETTINGS/PROFILE_UPDATE_SUCCEED',
-  payload: { userID, data }
+  payload: { user }
 })
 
 export const profileUpdateFailed = (error) => ({
